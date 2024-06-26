@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - Vue.js for start2impact</title>
+
+    <!-- Stili CSS -->
+    <style>
+        /* Stili per il layout generale */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #app {
+            text-align: center;
+        }
+        footer {
+            margin-top: 50px;
+        }
+
+        /* Stili per il form di input */
+        .start-button {
+            width: 100px;
+            height: 33px;
+            margin: 10px;
+            background-color: lightblue;
+        }
+        .input-player {
+            width: 150px;
+            height: 33px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        /* Stili per la griglia del gioco */
+        .grid-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 2px; 
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 2px solid lightblue;
+            text-align: center;
+            line-height: 100px;
+            font-size: 3em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<!-- HTML -->
+<body>
+    <div id="app">
+        <header>
+            <h1>Tic Tac Toe - Vue.js for start2impact</h1>
+            <div>
+                <input class="input-player" type="text" v-model="player1Name" placeholder="Nome giocatore 1">
+                <input class="input-player" type="text" v-model="player2Name" placeholder="Nome giocatore 2">
+            </div>
+            <div>
+                <button class="start-button" @click="startOrResetGame">{{ gameStarted ? 'Reset' : 'Inizia' }}</button>
+            </div>
+        </header>
+
+        <main>
+            <div v-if="gameStarted">{{ currentPlayerName }}, tocca a te!</div>
+            <div class="grid-container">
+                <div class="grid">
+                    <div
+                        class="cell"
+                        v-for="(cell, index) in cells"
+                        :key="index"
+                        @click="clickCell(index)"
+                    >
+                        {{ cell }}
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div>Questo programma che simula il gioco Tic Tac Toe è stato sviluppato da Roberta Ciresa nell'ambito dell'apprendimento di Vue.js per Start2Impact.</div>
+        </footer>
+    </div>
+
+    <!-- Script Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                cells: ['', '', '', '', '', '', '', '', ''],
+                currentPlayer: 'X',
+                player1Name: '',
+                player2Name: '',
+                gameStarted: false
+            },
+            computed: {
+                currentPlayerName() {
+                    return this.currentPlayer === 'X' ? this.player1Name : this.player2Name;
+                }
+            },
+            methods: {
+                startOrResetGame() {
+                    if (this.gameStarted) {
+                        this.cells = ['', '', '', '', '', '', '', '', ''];
+                        this.currentPlayer = 'X';
+                        this.gameStarted = false;
+                    } else if (this.player1Name && this.player2Name) {
+                        this.gameStarted = true;
+                    } else {
+                        alert('Per favore, inserisci i nomi di entrambi i giocatori.');
+                    }
+                },
+                clickCell(index) {
+                    if (!this.gameStarted || this.cells[index] !== '') {
+                        return;
+                    }
+                    this.$set(this.cells, index, this.currentPlayer);
+                    this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
