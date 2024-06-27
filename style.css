@@ -1,0 +1,50 @@
+/* Stili per il layout generale */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+#app {
+    text-align: center;
+}
+footer {
+    margin-top: 50px;
+}
+
+/* Stili per il form di input */
+.start-button {
+    width: 100px;
+    height: 33px;
+    margin: 10px;
+    background-color: lightblue;
+}
+.input-player {
+    width: 150px;
+    height: 33px;
+    margin: 5px;
+    text-align: center;
+}
+
+/* Stili per la griglia del gioco */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 2px; 
+}
+.cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid lightblue;
+    text-align: center;
+    line-height: 100px;
+    font-size: 3em;
+    cursor: pointer;
+}
